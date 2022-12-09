@@ -11,4 +11,4 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 .terraformrc
-terraform.rc
+terraform.rcnew collums
