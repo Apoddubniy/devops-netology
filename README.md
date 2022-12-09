@@ -11,4 +11,8 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 .terraformrc
-terraform.rcnew collums
+terraform.rc
+
+new collums
+
+Добавление еще одной строчки
