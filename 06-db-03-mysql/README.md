@@ -11,7 +11,7 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS      
 5cf1450d9a78   mysql:8.0   "docker-entrypoint.s…"   9 seconds ago   Up Less than a second   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   mysql
 
 ```
-* Изучите бэкап БД и восстановитесь из него.
+* Изучите бэкап БД и восстановитесь из него:
 ```commandline
 [lex@chrm-centos7 mysql]$ sudo docker exec -it mysql mysql -u root -p;
 Enter password:
