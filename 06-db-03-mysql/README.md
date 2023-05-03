@@ -87,8 +87,8 @@ mysql> select count(*) from orders where price > 300;
 
 ```commandline
 mysql> CREATE USER 'test'@'localhost'
-          IDENTIFIED WITH mysql_native_password BY 'password'
-          WITH MAX_CONNECTIONS_PER_HOUR 100
+          IDENTIFIED WITH mysql_native_password BY 'test-pass'
+          WITH MAX_QUERIES_PER_HOUR 100
           PASSWORD EXPIRE INTERVAL 180 DAY
           FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 2
           ATTRIBUTE '{"first_name":"James", "last_name":"Pretty"}';
@@ -253,9 +253,11 @@ socket=/var/run/mysqld/mysqld.sock
 
 !includedir /etc/mysql/conf.d/
 
-innodb_flush_log_at_trx_commit = 0
-innodb_file_format=Barracuda
-innodb_log_buffer_size= 1M
+innodb_flush_log_at_trx_commit = 2
+innodb_file_format = Barracuda
+innodb_file_per_table = ON
+innodb_log_buffer_size = 1M
+innodb_log_file_size = 256M ### 25%  от innodb_buffer_pool_size 
 key_buffer_size = 300M
 max_binlog_size= 100M
 ```
