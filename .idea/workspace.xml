@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa30b063-734d-4062-91a9-a01ceb92009e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/06-db-01-basics/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="fa30b063-734d-4062-91a9-a01ceb92009e" name="Changes" comment="Решение 07-01">
+      <change afterPath="$PROJECT_DIR$/07-terraform-02/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/01-intro-01.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-intro/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/07-terraform-01/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/07-terraform-01/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +39,16 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/poddubniy_av.sit/Documents/devops-netology/06-db-01-basics",
+    "TF_FMT": "false",
+    "last_opened_file_path": "C:/Users/poddubniy_av.sit/Documents/devops-netology/06-db-04-postgresql",
     "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\poddubniy_av.sit\Documents\devops-netology\06-db-04-postgresql" />
+      <recent name="C:\Users\poddubniy_av.sit\Documents\devops-netology\06-db-03-mysql" />
+      <recent name="C:\Users\poddubniy_av.sit\Documents\devops-netology\06-db-02-sql" />
       <recent name="C:\Users\poddubniy_av.sit\Documents\devops-netology\06-db-01-basics" />
     </key>
   </component>
@@ -52,6 +64,119 @@
       <option name="presentableId" value="Default" />
       <updated>1670578690761</updated>
     </task>
+    <task id="LOCAL-00001" summary="Full update repo">
+      <created>1681210654919</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681210654919</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Finish">
+      <created>1681210700495</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681210700495</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Исправлены мелкие недочеты.">
+      <created>1681211019143</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681211019143</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Исправлено в задании 06-01 задачи  2 и 4">
+      <created>1681283261148</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681283261148</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Решение ДЗ 06-02">
+      <created>1681738339475</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681738339475</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Дополнено 5-е задание.">
+      <created>1681812508839</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681812508840</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Решение 06-02">
+      <created>1683098898856</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1683098898856</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Решение 06-03">
+      <created>1683099213969</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683099213969</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Исправлена 4 задача.">
+      <created>1683109396412</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683109396412</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Решение 06-04">
+      <created>1683198147948</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683198147948</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Решение 06-05">
+      <created>1684137830489</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684137830489</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Решение 06-06">
+      <created>1684153368990</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684153368990</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Решение 06-06">
+      <created>1684153500843</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1684153500843</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Решение 06-06">
+      <created>1684154182978</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1684154182978</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Решение 07-01">
+      <created>1684243771684</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1684243771684</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Решение 07-01">
+      <created>1684243788468</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1684243788468</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -91,5 +216,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Full update repo" />
+    <MESSAGE value="Finish" />
+    <MESSAGE value="Исправлены мелкие недочеты." />
+    <MESSAGE value="Исправлено в задании 06-01 задачи  2 и 4" />
+    <MESSAGE value="Решение ДЗ 06-02" />
+    <MESSAGE value="Дополнено 5-е задание." />
+    <MESSAGE value="Решение 06-02" />
+    <MESSAGE value="Решение 06-03" />
+    <MESSAGE value="Исправлена 4 задача." />
+    <MESSAGE value="Решение 06-04" />
+    <MESSAGE value="Решение 06-05" />
+    <MESSAGE value="Решение 06-06" />
+    <MESSAGE value="Решение 07-01" />
+    <option name="LAST_COMMIT_MESSAGE" value="Решение 07-01" />
   </component>
 </project>
