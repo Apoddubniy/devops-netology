@@ -40,7 +40,7 @@ InvalidArgument desc = the specified number of cores is not available on platfor
 ***Ответ на задание № 2***
 
 1. Изучите файлы проекта.   
-`Шо... Опять?`
+`Выполнено`
 2. Замените все "хардкод" **значения** для ресурсов **yandex_compute_image** и **yandex_compute_instance** на **отдельные** переменные. К названиям переменных ВМ добавьте в начало префикс **vm_web_** .  Пример: **vm_web_name**.
 ```commandline
 data "yandex_compute_image" "vm_web_image" {
@@ -55,7 +55,7 @@ data "yandex_compute_image" "vm_web_image" {
     }
     ........
 ```
-2. Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их **default** прежними значениями из main.tf.
+3. Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их **default** прежними значениями из main.tf.
 ```html
 variable "image_family" {
   description = "name image in yc"
@@ -67,7 +67,7 @@ variable "instance_ubuntu" {
   default = "vm_web_name"
 }
 ```
-3. Проверьте terraform plan (изменений быть не должно). 
+4. Проверьте terraform plan (изменений быть не должно). 
 <details>
 <summary>Результат terraform plan</summary>
 
