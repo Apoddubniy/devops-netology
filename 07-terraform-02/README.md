@@ -73,102 +73,16 @@ variable "instance_ubuntu" {
 
 ```commandline
 lex@chrm-it-08:~/terraform/07-02/src$ terraform plan
-data.yandex_compute_image.vm_web_image: Reading...
-data.yandex_compute_image.vm_web_image: Read complete after 0s [id=fd83gfh90hpp3sojs1r3]
+data.yandex_compute_image.ubuntu: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enp669kh4ej85e46f719]
+data.yandex_compute_image.ubuntu: Read complete after 0s [id=fd8qssu7gclkmoi9flt4]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9b25dr29jiipqeie3dp]
+yandex_compute_instance.platform: Refreshing state... [id=fhmm43kbtqlt9mmq1m4d]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  + create
+No changes. Your infrastructure matches the configuration.
 
-Terraform will perform the following actions:
-
-  # yandex_compute_instance.vm_web_instance will be created
-  + resource "yandex_compute_instance" "vm_web_instance" {
-      + created_at                = (known after apply)
-      + folder_id                 = (known after apply)
-      + fqdn                      = (known after apply)
-      + gpu_cluster_id            = (known after apply)
-      + hostname                  = (known after apply)
-      + id                        = (known after apply)
-      + metadata                  = {
-          + "serial-port-enable" = "1"
-          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiUtF85NVCt/boCAYmIFlh49IRXeiv5TWlY7dY2fO8Z lex@chrm-it-08"
-        }
-      + name                      = "vm_web_name"
-      + network_acceleration_type = "standard"
-      + platform_id               = "standard-v1"
-      + service_account_id        = (known after apply)
-      + status                    = (known after apply)
-      + zone                      = (known after apply)
-
-      + boot_disk {
-          + auto_delete = true
-          + device_name = (known after apply)
-          + disk_id     = (known after apply)
-          + mode        = (known after apply)
-
-          + initialize_params {
-              + block_size  = (known after apply)
-              + description = (known after apply)
-              + image_id    = "fd83gfh90hpp3sojs1r3"
-              + name        = (known after apply)
-              + size        = (known after apply)
-              + snapshot_id = (known after apply)
-              + type        = "network-hdd"
-            }
-        }
-
-      + network_interface {
-          + index              = (known after apply)
-          + ip_address         = (known after apply)
-          + ipv4               = true
-          + ipv6               = (known after apply)
-          + ipv6_address       = (known after apply)
-          + mac_address        = (known after apply)
-          + nat                = true
-          + nat_ip_address     = (known after apply)
-          + nat_ip_version     = (known after apply)
-          + security_group_ids = (known after apply)
-          + subnet_id          = (known after apply)
-        }
-
-      + resources {
-          + core_fraction = 5
-          + cores         = 2
-          + memory        = 1
-        }
-
-      + scheduling_policy {
-          + preemptible = true
-        }
-    }
-
-  # yandex_vpc_network.develop will be created
-  + resource "yandex_vpc_network" "develop" {
-      + created_at                = (known after apply)
-      + default_security_group_id = (known after apply)
-      + folder_id                 = (known after apply)
-      + id                        = (known after apply)
-      + labels                    = (known after apply)
-      + name                      = "develop"
-      + subnet_ids                = (known after apply)
-    }
-
-  # yandex_vpc_subnet.develop will be created
-  + resource "yandex_vpc_subnet" "develop" {
-      + created_at     = (known after apply)
-      + folder_id      = (known after apply)
-      + id             = (known after apply)
-      + labels         = (known after apply)
-      + name           = "develop"
-      + network_id     = (known after apply)
-      + v4_cidr_blocks = [
-          + "10.0.1.0/24",
-        ]
-      + v6_cidr_blocks = (known after apply)
-      + zone           = "ru-central1-a"
-    }
-
-Plan: 3 to add, 0 to change, 0 to destroy.
+Terraform has compared your real infrastructure against your configuration and found no differences, so no
+changes are needed.
 ```
 </details>
 
@@ -212,8 +126,8 @@ ip_web = "{netology-web = 51.250.90.240}"
 ```
 
 ***Ответ на задание № 5***
-Ну вот так как-то (можно и не приминять и так все понятно из terraform plan):
 
+1. 
 Переменные:
 ```commandline
 locals {
@@ -221,6 +135,7 @@ locals {
   name_suffix_db = "${var.prod_name_suff}-${var.instance_db}"
 }
 ```
+2. 
 Имена машин:
 ```commandline
 resource "yandex_compute_instance" "web" {
@@ -231,178 +146,7 @@ resource "yandex_compute_instance" "db" {
     name        = local.name_suffix_db
 
 ```
-<details>
-<summary>Результат terraform plan</summary>
 
-```commandline
-lex@chrm-it-08:~/terraform/07-02/src$ terraform plan
-data.yandex_compute_image.image: Reading...
-data.yandex_compute_image.image: Read complete after 1s [id=fd83gfh90hpp3sojs1r3]
-
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  + create
-
-Terraform will perform the following actions:
-
-  # yandex_compute_instance.db will be created
-  + resource "yandex_compute_instance" "db" {
-      + created_at                = (known after apply)
-      + folder_id                 = (known after apply)
-      + fqdn                      = (known after apply)
-      + gpu_cluster_id            = (known after apply)
-      + hostname                  = (known after apply)
-      + id                        = (known after apply)
-      + metadata                  = {
-          + "serial-port-enable" = "1"
-          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiUtF85NVCt/boCAYmIFlh49IRXeiv5TWlY7dY2fO8Z lex@chrm-it-08"
-        }
-      + name                      = "netology-develop-platform-db"
-      + network_acceleration_type = "standard"
-      + platform_id               = "standard-v1"
-      + service_account_id        = (known after apply)
-      + status                    = (known after apply)
-      + zone                      = (known after apply)
-
-      + boot_disk {
-          + auto_delete = true
-          + device_name = (known after apply)
-          + disk_id     = (known after apply)
-          + mode        = (known after apply)
-
-          + initialize_params {
-              + block_size  = (known after apply)
-              + description = (known after apply)
-              + image_id    = "fd83gfh90hpp3sojs1r3"
-              + name        = (known after apply)
-              + size        = (known after apply)
-              + snapshot_id = (known after apply)
-              + type        = "network-hdd"
-            }
-        }
-
-      + network_interface {
-          + index              = (known after apply)
-          + ip_address         = (known after apply)
-          + ipv4               = true
-          + ipv6               = (known after apply)
-          + ipv6_address       = (known after apply)
-          + mac_address        = (known after apply)
-          + nat                = true
-          + nat_ip_address     = (known after apply)
-          + nat_ip_version     = (known after apply)
-          + security_group_ids = (known after apply)
-          + subnet_id          = (known after apply)
-        }
-
-      + resources {
-          + core_fraction = 20
-          + cores         = 2
-          + memory        = 2
-        }
-
-      + scheduling_policy {
-          + preemptible = true
-        }
-    }
-
-  # yandex_compute_instance.web will be created
-  + resource "yandex_compute_instance" "web" {
-      + created_at                = (known after apply)
-      + folder_id                 = (known after apply)
-      + fqdn                      = (known after apply)
-      + gpu_cluster_id            = (known after apply)
-      + hostname                  = (known after apply)
-      + id                        = (known after apply)
-      + metadata                  = {
-          + "serial-port-enable" = "1"
-          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiUtF85NVCt/boCAYmIFlh49IRXeiv5TWlY7dY2fO8Z lex@chrm-it-08"
-        }
-      + name                      = "netology-develop-platform-web"
-      + network_acceleration_type = "standard"
-      + platform_id               = "standard-v1"
-      + service_account_id        = (known after apply)
-      + status                    = (known after apply)
-      + zone                      = (known after apply)
-
-      + boot_disk {
-          + auto_delete = true
-          + device_name = (known after apply)
-          + disk_id     = (known after apply)
-          + mode        = (known after apply)
-
-          + initialize_params {
-              + block_size  = (known after apply)
-              + description = (known after apply)
-              + image_id    = "fd83gfh90hpp3sojs1r3"
-              + name        = (known after apply)
-              + size        = (known after apply)
-              + snapshot_id = (known after apply)
-              + type        = "network-hdd"
-            }
-        }
-
-      + network_interface {
-          + index              = (known after apply)
-          + ip_address         = (known after apply)
-          + ipv4               = true
-          + ipv6               = (known after apply)
-          + ipv6_address       = (known after apply)
-          + mac_address        = (known after apply)
-          + nat                = true
-          + nat_ip_address     = (known after apply)
-          + nat_ip_version     = (known after apply)
-          + security_group_ids = (known after apply)
-          + subnet_id          = (known after apply)
-        }
-
-      + resources {
-          + core_fraction = 5
-          + cores         = 2
-          + memory        = 1
-        }
-
-      + scheduling_policy {
-          + preemptible = true
-        }
-    }
-
-  # yandex_vpc_network.develop will be created
-  + resource "yandex_vpc_network" "develop" {
-      + created_at                = (known after apply)
-      + default_security_group_id = (known after apply)
-      + folder_id                 = (known after apply)
-      + id                        = (known after apply)
-      + labels                    = (known after apply)
-      + name                      = "develop"
-      + subnet_ids                = (known after apply)
-    }
-
-  # yandex_vpc_subnet.develop will be created
-  + resource "yandex_vpc_subnet" "develop" {
-      + created_at     = (known after apply)
-      + folder_id      = (known after apply)
-      + id             = (known after apply)
-      + labels         = (known after apply)
-      + name           = "develop"
-      + network_id     = (known after apply)
-      + v4_cidr_blocks = [
-          + "10.0.1.0/24",
-        ]
-      + v6_cidr_blocks = (known after apply)
-      + zone           = "ru-central1-a"
-    }
-
-Plan: 4 to add, 0 to change, 0 to destroy.
-
-Changes to Outputs:
-  + ip_db  = (known after apply)
-  + ip_web = (known after apply)
-
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
-```
-</details>
 
 ***Ответ на задание № 6***
 
@@ -419,171 +163,20 @@ Note: You didn't use the -out option to save this plan, so Terraform can't guara
 
 ```commandline
 lex@chrm-it-08:~/terraform/07-02/src$ terraform plan
-data.yandex_compute_image.image: Reading...
-data.yandex_compute_image.image: Read complete after 0s [id=fd8qssu7gclkmoi9flt4]
+data.yandex_compute_image.ubuntu: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enp6t3g36lcs4mg944tf]
+data.yandex_compute_image.bubuntu: Reading...
+data.yandex_compute_image.ubuntu: Read complete after 0s [id=fd8qssu7gclkmoi9flt4]
+data.yandex_compute_image.bubuntu: Read complete after 0s [id=fd8qssu7gclkmoi9flt4]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9bljppujjvhcc9cg0vj]
+yandex_compute_instance.platform: Refreshing state... [id=fhmf6dbl11qkmogv7ild]
+yandex_compute_instance.db: Refreshing state... [id=fhml6mt1llvs210i7hul]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  + create
+No changes. Your infrastructure matches the configuration.
 
-Terraform will perform the following actions:
+Terraform has compared your real infrastructure against your configuration and found no differences, so no
+changes are needed.
 
-  # yandex_compute_instance.db will be created
-  + resource "yandex_compute_instance" "db" {
-      + created_at                = (known after apply)
-      + folder_id                 = (known after apply)
-      + fqdn                      = (known after apply)
-      + gpu_cluster_id            = (known after apply)
-      + hostname                  = (known after apply)
-      + id                        = (known after apply)
-      + metadata                  = {
-          + "serial-port-enable" = "1"
-          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiUtF85NVCt/boCAYmIFlh49IRXeiv5TWlY7dY2fO8Z lex@chrm-it-08"
-        }
-      + name                      = "netology-develop-platform-db"
-      + network_acceleration_type = "standard"
-      + platform_id               = "standard-v1"
-      + service_account_id        = (known after apply)
-      + status                    = (known after apply)
-      + zone                      = (known after apply)
-
-      + boot_disk {
-          + auto_delete = true
-          + device_name = (known after apply)
-          + disk_id     = (known after apply)
-          + mode        = (known after apply)
-
-          + initialize_params {
-              + block_size  = (known after apply)
-              + description = (known after apply)
-              + image_id    = "fd8qssu7gclkmoi9flt4"
-              + name        = (known after apply)
-              + size        = (known after apply)
-              + snapshot_id = (known after apply)
-              + type        = "network-hdd"
-            }
-        }
-
-      + network_interface {
-          + index              = (known after apply)
-          + ip_address         = (known after apply)
-          + ipv4               = true
-          + ipv6               = (known after apply)
-          + ipv6_address       = (known after apply)
-          + mac_address        = (known after apply)
-          + nat                = true
-          + nat_ip_address     = (known after apply)
-          + nat_ip_version     = (known after apply)
-          + security_group_ids = (known after apply)
-          + subnet_id          = (known after apply)
-        }
-
-      + resources {
-          + core_fraction = 20
-          + cores         = 2
-          + memory        = 2
-        }
-
-      + scheduling_policy {
-          + preemptible = true
-        }
-    }
-
-  # yandex_compute_instance.web will be created
-  + resource "yandex_compute_instance" "web" {
-      + created_at                = (known after apply)
-      + folder_id                 = (known after apply)
-      + fqdn                      = (known after apply)
-      + gpu_cluster_id            = (known after apply)
-      + hostname                  = (known after apply)
-      + id                        = (known after apply)
-      + metadata                  = {
-          + "serial-port-enable" = "1"
-          + "ssh-keys"           = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILiUtF85NVCt/boCAYmIFlh49IRXeiv5TWlY7dY2fO8Z lex@chrm-it-08"
-        }
-      + name                      = "netology-develop-platform-web"
-      + network_acceleration_type = "standard"
-      + platform_id               = "standard-v1"
-      + service_account_id        = (known after apply)
-      + status                    = (known after apply)
-      + zone                      = (known after apply)
-
-      + boot_disk {
-          + auto_delete = true
-          + device_name = (known after apply)
-          + disk_id     = (known after apply)
-          + mode        = (known after apply)
-
-          + initialize_params {
-              + block_size  = (known after apply)
-              + description = (known after apply)
-              + image_id    = "fd8qssu7gclkmoi9flt4"
-              + name        = (known after apply)
-              + size        = (known after apply)
-              + snapshot_id = (known after apply)
-              + type        = "network-hdd"
-            }
-        }
-
-      + network_interface {
-          + index              = (known after apply)
-          + ip_address         = (known after apply)
-          + ipv4               = true
-          + ipv6               = (known after apply)
-          + ipv6_address       = (known after apply)
-          + mac_address        = (known after apply)
-          + nat                = true
-          + nat_ip_address     = (known after apply)
-          + nat_ip_version     = (known after apply)
-          + security_group_ids = (known after apply)
-          + subnet_id          = (known after apply)
-        }
-
-      + resources {
-          + core_fraction = 5
-          + cores         = 2
-          + memory        = 1
-        }
-
-      + scheduling_policy {
-          + preemptible = true
-        }
-    }
-
-  # yandex_vpc_network.develop will be created
-  + resource "yandex_vpc_network" "develop" {
-      + created_at                = (known after apply)
-      + default_security_group_id = (known after apply)
-      + folder_id                 = (known after apply)
-      + id                        = (known after apply)
-      + labels                    = (known after apply)
-      + name                      = "develop"
-      + subnet_ids                = (known after apply)
-    }
-
-  # yandex_vpc_subnet.develop will be created
-  + resource "yandex_vpc_subnet" "develop" {
-      + created_at     = (known after apply)
-      + folder_id      = (known after apply)
-      + id             = (known after apply)
-      + labels         = (known after apply)
-      + name           = "develop"
-      + network_id     = (known after apply)
-      + v4_cidr_blocks = [
-          + "10.0.1.0/24",
-        ]
-      + v6_cidr_blocks = (known after apply)
-      + zone           = "ru-central1-a"
-    }
-
-Plan: 4 to add, 0 to change, 0 to destroy.
-
-Changes to Outputs:
-  + ip_db  = (known after apply)
-  + ip_web = (known after apply)
-
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
 
 ```
 </details>

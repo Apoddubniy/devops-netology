@@ -40,9 +40,17 @@ variable "vms_ssh_root_key" {
   description = "ssh-keygen -t ed25519"
 }
 
-variable "image_family" {
+variable "vm_web_image_family" {
   description = "name image in yc"
   default = "ubuntu-2004-lts"
+}
+
+variable "vm_web_platform" {
+  default = "standard-v1"
+}
+
+variable "vm_web_name" {
+  default = "netology-develop-platform-web"
 }
 
 variable "instance_web" {
@@ -53,10 +61,6 @@ variable "instance_web" {
 variable "instance_db" {
   description = "shortname"
   default = "db"
-}
-
-variable "platform" {
-  default = "standard-v1"
 }
 
 variable "prod_name_suff" {
