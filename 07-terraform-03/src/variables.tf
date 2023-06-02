@@ -32,25 +32,36 @@ variable "vpc_name" {
 }
 
 variable "image_family" {
+  type        = string
   description = "name image in yc"
   default = "ubuntu-2004-lts"
 }
 
 variable "name_pref" {
+  type        = string
   default = "netology-develop"
 }
 
 variable "standart" {
+  type        = string
   default = "standard-v1"
 }
 
 variable "resources" {
+    type = list (object({
+        vm_name         = string
+        cpu             = number
+        ram             = number
+        disk            = number
+        core_frac       = number
+    }))
   default = [{ vm_name="main", cpu="2", ram="1", disk="1", core_frac = "5"},
   { vm_name="replica", cpu="2", ram="1", disk="2", core_frac = "20"}]
 }
 
 
 locals {
+  type = string
   ssh_key = file("~/.ssh/id_ed25519.pub")
 }
 
