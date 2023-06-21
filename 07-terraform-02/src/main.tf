@@ -9,60 +9,63 @@ resource "yandex_vpc_subnet" "develop" {
 }
 
 
-data "yandex_compute_image" "image" {
-  family = var.image_family
+data "yandex_compute_image" "ubuntu" {
+  family = var.vm_web_image_family
 }
-  resource "yandex_compute_instance" "web" {
-    name = local.name_suffix_web
-    platform_id = var.platform
-    resources {
+resource "yandex_compute_instance" "platform" {
+  name        = var.vm_web_name
+  platform_id = var.vm_web_platform
+  resources {
       cores         = local.vm_web_resources.core
       memory        = local.vm_web_resources.mem
       core_fraction = local.vm_web_resources.core_frac
-    }
-    boot_disk {
-      initialize_params {
-        image_id = data.yandex_compute_image.image.image_id
-      }
-    }
-    scheduling_policy {
-      preemptible = true
-    }
-    network_interface {
-      subnet_id = yandex_vpc_subnet.develop.id
-      nat       = true
-    }
-
-    metadata = {
-      serial-port-enable = local.ser_port
-      ssh-keys           =  local.ssh_key
-
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
     }
   }
+  scheduling_policy {
+    preemptible = true
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+
+  metadata = {
+      serial-port-enable = local.ser_port
+      ssh-keys           = local.ssh_key
+  }
+}
+
+data "yandex_compute_image" "bubuntu" {
+  family = var.vm_db_image_family
+}
 resource "yandex_compute_instance" "db" {
-    name        = local.name_suffix_db
-    platform_id = var.platform_db
-    resources {
+  name        = var.vm_db_name
+  platform_id = var.vm_db_platform
+  resources {
       cores = local.vm_db_resources.core
       memory = local.vm_db_resources.mem
       core_fraction = local.vm_db_resources.core_frac
+  }
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
     }
-    boot_disk {
-      initialize_params {
-        image_id = data.yandex_compute_image.image.image_id
-      }
-    }
-    scheduling_policy {
-      preemptible = true
-    }
-    network_interface {
-      subnet_id = yandex_vpc_subnet.develop.id
-      nat       = true
-    }
+  }
+  scheduling_policy {
+    preemptible = true
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
 
-    metadata = {
+  metadata = {
       serial-port-enable = local.ser_port
       ssh-keys           = local.ssh_key
-    }
-
   }
+}
+

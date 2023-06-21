@@ -1,5 +1,5 @@
 output "ip_web" {
-  value ="{${yandex_compute_instance.web.name} = ${yandex_compute_instance.web.network_interface[0].nat_ip_address}}"
+  value ="{${yandex_compute_instance.platform.name} = ${yandex_compute_instance.platform.network_interface[0].nat_ip_address}}"
 }
 
 output "ip_db" {
