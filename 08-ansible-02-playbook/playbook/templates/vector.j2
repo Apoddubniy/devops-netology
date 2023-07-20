@@ -1,0 +1,17 @@
+[sources.{{ src }}]
+type = "file"
+include = [ "{{ log_path }}" ]
+read_from = "beginning"
+ignore_older_secs = 600
+
+[sinks.{{ dest }}]
+type = "clickhouse"
+inputs = [ "{{ src }}" ]
+endpoint = "{{ click_point }}"
+table = "some_log"
+compression= "gzip"
+database = "sample"
+auth.strategy = "basic"
+auth.user = "{{ user }}"
+auth.password = "{{ user }}"
+healthcheck = false
