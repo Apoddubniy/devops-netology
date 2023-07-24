@@ -146,4 +146,4 @@ PLAY RECAP *********************************************************************
 clickhouse-01              : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
 vector-01                  : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
-9. Составлен файл [playbook.md](playbook/playbook.md)
+9. Составлен файл [playbook2.md](playbook/playbook2.md)
