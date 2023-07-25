@@ -1,0 +1,108 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  handlers:
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+  tasks:
+    - block:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
+            dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distrib common
+          ansible.builtin.get_url:
+            url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
+            dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+    - name: Install clickhouse packages
+      become: true
+      ansible.builtin.yum:
+        name:
+          - clickhouse-common-static-{{ clickhouse_version }}.rpm
+          - clickhouse-client-{{ clickhouse_version }}.rpm
+          - clickhouse-server-{{ clickhouse_version }}.rpm
+      notify: Start clickhouse service
+    - name: Flush handlers
+      meta: flush_handlers
+    - name: Create database
+      ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc !=82
+      changed_when: create_db.rc == 0
+
+- name: Install vector
+  hosts: vector
+  handlers:
+    - name: Start Vector service
+      ansible.builtin.service:
+        name: vector
+        state: restarted
+  tasks:
+   - name: Get RPM Vector
+     ansible.builtin.get_url:
+       url: "https://packages.timber.io/vector/{{ vector_ver }}/vector-{{ vector_ver }}-1.x86_64.rpm"
+       dest: "./vector-{{ vector_ver }}-1.x86_64.rpm"
+   - name: Install RPM vector
+     become: true
+     ansible.builtin.yum:
+       name:
+        - vector-{{ vector_ver }}-1.x86_64.rpm
+   - name: Input config Vector
+     template:
+       src: vector.j2
+       dest: /etc/vector/vector.toml
+       mode: "0644"
+
+- name: Install Nginx, epel, git
+  hosts: light
+  become: true
+  pre_tasks:
+    - name: Epel repos
+      ansible.builtin.yum_repository:
+        name: epel
+        description: install epel repos
+        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        gpgcheck: true
+  tasks:
+    - name: Install soft
+      ansible.builtin.yum:
+        name:
+          - git
+          - nginx
+        state: present
+
+- name: Install Lighthouse
+  hosts: light
+  handlers:
+    - name: Restart nginx service
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+  tasks:
+    - name: Get light distrib
+      become: true
+      git:
+        repo: "{{ light_repo }}"
+        version: master
+        dest: "{{ light_path }}"
+    - name: Create light config
+      become: true
+      template:
+        src: nginx.j2
+        dest: /etc/nginx/nginx.conf
+        mode: "0644"
+      notify: Restart nginx service
+    - name: Flush handlers
+      meta: flush_handlers
+    - name: FIREWALL | Add Rules
+      changed_when: false
+      become: true
+      shell: |
+        firewall-cmd --permanent --add-service=http
+        firewall-cmd --reload
