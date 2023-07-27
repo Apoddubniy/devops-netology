@@ -25,7 +25,15 @@
 8. Выложите все roles в репозитории. Проставьте теги, используя семантическую нумерацию. Добавьте roles в `requirements.yml` в playbook.  
 `Помучался с гитом, но сделал: создал, выложил, оттегировал. Дважды, версия тэга v.1.1`
 9. Переработайте playbook на использование roles.   
-Плейбук переделан для использования ролей. Все роли подтягиваются из файла [requirements.yml](playbook/role/requirements.yml), так что заливать весь плейбук полностью на гит, не вижу смысла.    
+Плейбук переделан для использования ролей. Все роли подтягиваются из файла [requirements.yml](playbook/role/requirements.yml), так что заливать весь плейбук полностью на гит, не вижу смысла.
+
 [Сыыслка на плейбук](playbook/site.yml)  
 [Ссылка на репозиторий с vector](https://github.com/Apoddubniy/vector-role)  
-[Ссылка на репозиторий с lighthouse](https://github.com/Apoddubniy/lighthouse-role)
+[Ссылка на репозиторий с lighthouse](https://github.com/Apoddubniy/lighthouse-role)  
+
+#### Описание плейбука
+___
+* Обновляем кэш приложений на всех хостах с помощью модуля ` ansible.builtin.yum`
+* Производится установка clickhouse с помощью скачанной роли с настройками `clickhouse_dbs_custom` и `clickhouse_users_custom`
+* Устанавливается с помощью роли Vector версии `vector_ver: "0.31.0"`
+* Устанавливается с помощью роли Lighthouse
