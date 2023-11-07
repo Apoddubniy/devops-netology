@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name:  netology-web
+  labels:
+    key: netology-web
+spec:
+  containers:
+    - name: netology-web
+      image: gcr.io/kubernetes-e2e-test-images/echoserver:2.2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: netology-svc
+spec:
+  selector:
+    key: netology-web
+  ports:
+  - protocol: TCP
+    port: 10000
+    targetPort: 8080
