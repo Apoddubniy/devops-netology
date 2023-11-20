@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx1-3
+  namespace: kub1-3
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx1-2
+          image: nginx:1.25.1
+          ports:
+          - protocol: TCP
+            containerPort: 80
+      initContainers:
+      - name: wait-up-service
+        image: busybox
+        command: ['sh', '-c', "sleep 15; until nslookup svc1-3-2.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for svc1-3-2; sleep 10; done"]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc1-3-2
+  namespace: kub1-3
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80

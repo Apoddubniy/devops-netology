@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  namespace: kub1-3
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25.1
+          ports:
+          - protocol: TCP
+            containerPort: 80
+
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          ports:
+          - protocol: TCP
+            containerPort: 1180
+          env:
+            - name: HTTP_PORT
+              value: "1180"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc1-3
+  namespace: kub1-3
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multitool
+  namespace: kub1-3
+  labels:
+    cont: multitool
+spec:
+  containers:
+    - name: multitool
+      image: wbitt/network-multitool:latest
+      ports:
+      env:
+        - name: HTTP_PORT
+          value: "8080"
