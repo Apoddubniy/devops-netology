@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: syslog
+  namespace: deploy-6
+  labels:
+    app: multitool
+spec:
+  selector:
+    matchLabels:
+      app: multitool
+  template:
+    metadata:
+      labels:
+        app: multitool
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          volumeMounts:
+          - name: logs
+            mountPath: /logs
+
+      volumes:
+      - name: logs
+        hostPath:
+          path: /var/log/syslog

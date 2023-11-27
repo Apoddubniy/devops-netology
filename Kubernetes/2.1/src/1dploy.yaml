@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-volumes
+  namespace: deploy-6
+  labels:
+    app: bustool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bustool
+  template:
+    metadata:
+      labels:
+        app: bustool
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          volumeMounts:
+          - name: folder
+            mountPath: /tool
+          command: ['bash', '-c', 'while true; do cat /tool/20.txt; sleep 5; done' ]
+
+        - name: busybox
+          image: busybox
+          volumeMounts:
+          - name: folder
+            mountPath: /box
+          command: ['sh', '-c', 'x=1; while [ $x -lt 100 ]; do echo "Попытка записать файл № $x в файл по времени сервера $(date +%T)" >> /box/20.txt; x=$(( $x + 1 )); sleep 5; done' ]
+
+      volumes:
+      - name: folder
+        hostPath:
+          path: /tmp/test
