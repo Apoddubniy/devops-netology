@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deploy-7
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-pvc
+  namespace: deploy-7
+  labels:
+    app: bustool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bustool
+  template:
+    metadata:
+      labels:
+        app: bustool
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          volumeMounts:
+          - name: vol
+            mountPath: /tool
+          command: ['bash', '-c', 'while true; do cat /tool/20.txt; sleep 5; done' ]
+
+        - name: busybox
+          image: busybox
+          volumeMounts:
+          - name: vol
+            mountPath: /box
+          command: ['sh', '-c', 'x=1; while [ $x -lt 100 ]; do echo "Попытка записать строчку № $x в файл по времени сервера $(date +%T)" >> /box/20.txt; x=$(( $x + 1 )); sleep 5; done' ]
+
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: pvc-vol
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-vol
+  namespace: deploy-7
+spec:
+  storageClassName: local
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
