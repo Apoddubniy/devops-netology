@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deploy-8
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config
+  namespace: deploy-8
+data:
+  ports_multitool: '1180'
+  ports_nginx: '80'
+  index: |
+    <H1> Test page!</h1>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-confmap
+  namespace: deploy-8
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25.1
+          volumeMounts:
+          - name: configmap-nginx
+            mountPath: /usr/share/nginx/html/
+          env:
+          - name: NGINX_PORT
+            valueFrom:
+                configMapKeyRef:
+                  name: test-config
+                  key: ports_nginx
+
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          env:
+          - name: HTTP_PORT
+            valueFrom:
+                configMapKeyRef:
+                  name: test-config
+                  key: ports_multitool
+
+      volumes:
+        - name: configmap-nginx
+          configMap:
+            name: test-config
+            items:
+              - key: "index"
+                path: "index.html"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc8
+  namespace: deploy-8
+spec:
+  selector:
+    app: nginx
+  ports:
+    - name: nginx
+      protocol: TCP
+      port: 80
+
