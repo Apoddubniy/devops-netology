@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back
+  namespace: app
+  labels:
+    app: back
+spec:
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-back
+  namespace: app
+spec:
+  selector:
+    app: back
+  ports:
+    - name: multitool
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: back-policy
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      app: back
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: front
+      ports:
+        - protocol: TCP
+          port: 80
+          endPort: 8080

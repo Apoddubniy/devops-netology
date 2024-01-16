@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  namespace: app
+  labels:
+    app: front
+spec:
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-svc
+  namespace: app
+spec:
+  selector:
+    app: front
+  ports:
+    - name: multitool
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: front-policy
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      app: front
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: front
+  policyTypes:
+    - Ingress
