@@ -1,0 +1,108 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kub-update
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-multitool
+  namespace: kub-update
+  labels:
+    app: nginx-multitool
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: nginx-multitool
+  template:
+    metadata:
+      labels:
+        app: nginx-multitool
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool
+          ports:
+          - protocol: TCP
+            containerPort: 1180
+          env:
+            - name: HTTP_PORT
+              value: "1180"
+
+        - name: nginx
+          image: nginx:1.28
+          ports:
+          - protocol: TCP
+            containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-kub-update
+  namespace: kub-update
+spec:
+  selector:
+    app: nginx-multitool
+  ports:
+    - name: multitool
+      protocol: TCP
+      port: 1180
+      targetPort: 1180
+
+    - name: nginx
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: frontend
+#  namespace: kub-update
+#  labels:
+#    app: frontend
+#spec:
+#  replicas: 5
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 100%
+#      maxUnavailable: 25%
+#  selector:
+#    matchLabels:
+#      app: frontend
+#  template:
+#    metadata:
+#      labels:
+#        app: frontend
+#    spec:
+#      containers:
+#        - name: nginx
+#          image: nginx:1.28
+#
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: frontend-svc
+#  namespace: kub-update
+#spec:
+#  selector:
+#    app: frontend
+#  ports:
+#    - name: nginx
+#      protocol: TCP
+#      port: 80
+#      targetPort: 80
+#  type: ClusterIP
