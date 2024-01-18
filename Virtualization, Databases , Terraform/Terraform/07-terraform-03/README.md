@@ -447,9 +447,9 @@ resource "yandex_compute_instance" "storage" {
   ......
 ```
 Скриншотs:
-![skrin](img/Список%20дисков.jpg)  
+![skrin](img/Список дисков.jpg)  
 
-![skrin](img/Список%20дисков_2.jpg)
+![skrin](img/Список дисков_2.jpg)
 
 ***Ответ на задание № 4***
 
