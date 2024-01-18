@@ -1,6 +1,6 @@
 ### Ответ на домашнее задание к 06-02 «SQL»
 
-1. [Dockerfile](./docker-compose.yml)
+1. [Dockerfile](docker-compose.yml)
 
 2. В БД из задачи 1:  
 
