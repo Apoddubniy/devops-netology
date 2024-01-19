@@ -17,10 +17,10 @@ personal.auto.tfvars
 */*.tfvars
 
 *.log
-08-ansible-04-role/playbook/inventory
-08-ansible-04-role/playbook/role/clickhouse/*
-08-ansible-04-role/playbook/role/vector-role/*
-08-ansible-04-role/playbook/role/lighthouse-role/*
+CI, monitoring and config management/Configuration Management System/08-ansible-04-role/playbook/inventory
+CI, monitoring and config management/Configuration Management System/08-ansible-04-role/playbook/role/clickhouse/*
+CI, monitoring and config management/Configuration Management System/08-ansible-04-role/playbook/role/vector-role/*
+CI, monitoring and config management/Configuration Management System/08-ansible-04-role/playbook/role/lighthouse-role/*
 
 # Local .terraform directories
 **/.terraform/*
