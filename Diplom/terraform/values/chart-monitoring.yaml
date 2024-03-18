@@ -1,0 +1,105 @@
+defaultRules:
+  rules:
+    alertmanager: true
+    etcd: false
+    configReloaders: false
+    kubeControllerManager: false
+    kubelet: true
+    kubeProxy: false
+    windows: false
+
+global:
+  rbac:
+    create: true
+
+prometheus-windows-exporter:
+  prometheus:
+    monitor:
+      enabled: false
+
+alertmanager:
+  enabled: true
+  annotations: {}
+
+grafana:
+  enabled: true
+  adminPassword: devops25
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - dev.ops.grafana
+    path: /
+    tls: []
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL
+      provider:
+        allowUiUpdates: false
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+      isDefaultDatasource: true
+      uid: prometheus
+      alertmanager:
+        enabled: true
+        uid: alertmanager
+        handleGrafanaManagedAlerts: false
+        implementation: prometheus
+  service:
+    portName: http-web
+
+kubernetesServiceMonitors:
+  enabled: true
+
+kubeApiServer:
+  enabled: true
+
+kubeControllerManager:
+  enabled: false
+  endpoints: []
+
+kubeDns:
+  enabled: false
+  service:
+    dnsmasq:
+      port: 10054
+      targetPort: 10054
+    skydns:
+      port: 10055
+      targetPort: 10055
+
+  serviceMonitor:
+    interval: ""
+    sampleLimit: 0
+    targetLimit: 0
+    labelLimit: 0
+    labelNameLengthLimit: 0
+    labelValueLengthLimit: 0
+    proxyUrl: ""
+    metricRelabelings: []
+    relabelings: []
+    dnsmasqMetricRelabelings: []
+    dnsmasqRelabelings: []
+    additionalLabels: {}
+
+kubeEtcd:
+  enabled: false
+  endpoints: []
+
+kubeScheduler:
+  enabled: false
+  endpoints: []
+
+kubeProxy:
+  enabled: false
+  endpoints: []
+
+prometheus:
+  enabled: true
+  agentMode: false
+  networkPolicy:
+    enabled: false

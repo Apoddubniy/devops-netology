@@ -1,0 +1,81 @@
+replicaCount: 3
+
+image:
+  repository: avpoddubniy/test-app
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  digest: sha256:42dbcf86c8f2d42cc60d810c09b554137f82e046198e36f20cc88d3d150d8d40
+  port: 80
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  auth:
+    enabled: false
+    users: {}
+    #  - username: ""
+    #    password: ""
+    useSecretName: ""
+  className: nginx
+  annotations: {}
+    # kubernetes.io/tls-acme: "true"
+  hostname: dev.ops.static
+  tls: false
+
+resources: {}
+#  limits:
+#    cpu: 400m
+#    memory: 100Mi
+#  requests:
+#    cpu: 10m
+#    memory: 10Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+readinessProbe:
+  enabled: false
+  path: "/"
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+  timeoutSeconds: 1
+
+livenessProbe:
+  enabled: true
+  path: "/"
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+  timeoutSeconds: 1
+
+# -- (string, bool) Additional config in nginx server config definition.
+# If false, then ConfigMap won't be mounted
+# If string, content will be appended to ConfigMap
+configNginx: true
+
+useMemoryStorage: false
