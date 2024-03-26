@@ -3,8 +3,7 @@
 ---
 <details>
 <summary>
-
-### Системное администрирование Linux
+<span style="font-size:1.5em; font-weight:bold;">Системное администрирование Linux</span>
 </summary>
 
 * [Введение в DevOps](DevOps%20%26%20SysAdm/Version%20control%20systems/01-intro)  
@@ -24,9 +23,9 @@
 ---
 <details>
 <summary>
-
-### Виртуализация, базы данных и Terraform
+<span style="font-size:1.5em; font-weight:bold;">Виртуализация, базы данных и Terraform</span>
 </summary>
+
 
 #### Виртуализация:  
 * [Введение в виртуализацию](Virtualization%2C%20Databases%20%2C%20Terraform/Virtualization/05-virt-01-basics)
@@ -49,10 +48,10 @@
 
 </details>
 
+---
 <details>
 <summary>
-
-### CI, мониторинг и управление конфигурациями
+<span style="font-size:1.5em; font-weight:bold;"> CI, мониторинг и управление конфигурациями</span>
 </summary>
 
 #### Система управления конфигурациями:
@@ -74,10 +73,10 @@
 
 </details>
 
+---
 <details>
 <summary>
-
-### Администрирование и конфигурация Kubernetes
+<span style="font-size:1.5em; font-weight:bold;">Администрирование и конфигурация Kubernetes</span>
 </summary>
 
 #### Микросервисная архитектура:
@@ -104,12 +103,13 @@
 
 </details>
 
+---
 <details>
 <summary>
-
-### Дипломный проект
-
+<span style="font-size:1.5em; font-weight:bold;">Дипломный проект</span>
 </summary>
 
 * [Ссылка на проект](Diplom/README.md)
 </details>
+
+---
